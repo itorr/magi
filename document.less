@@ -7,11 +7,18 @@
     --color-green:chartreuse;
     --body-padding: 20px;
 }
+
+@font-face {
+    font-weight: 900;
+    font-family: FOTMatisseProEB;
+    src: url(matisse-split.woff);
+}
+
 html{
     font-size:2em;
     line-height: 1.2;
     font-weight: 900;
-    font-family: 'EVA-Matisse_Classic',serif;
+    font-family: FOTMatisseProEB,'EVA-Matisse_Classic',serif;
     background:var(--color-orange);
     color:#FFF;
     text-align: center;
@@ -25,6 +32,12 @@ html{
     // );
     // animation: origin 5s infinite linear;
     cursor: pointer;
+
+
+    font-variant-east-asian: proportional-width;
+    -moz-font-feature-settings: "pwid";
+    -webkit-font-feature-settings: "pwid";
+    font-feature-settings: "pwid";
 }
 @keyframes origin {
     100%{
@@ -43,6 +56,14 @@ body{
 h1,h2,h3,h4,
 p{
     margin:0;
+}
+a{
+    color: currentColor;
+    text-decoration: none;
+}
+::selection{
+    background:var(--color-green);
+    color:var(--color-black);
 }
 header{
     &:after{
@@ -93,7 +114,7 @@ header{
 }
 .config-box{
     font-weight: 200;
-    font-family: monospace;
+    font-family: 'Neue Helvetica',Helvetica,sans-serif;
     font-size:.8em;
     text-align: left;
     padding:2em .3em;
@@ -110,6 +131,17 @@ header{
         b{
             margin-left:.2em;
         }
+    }
+
+    .reset{
+        visibility: hidden;
+        display: inline-block;
+        margin:1em 0;
+        padding:0 .3em;
+        line-height: 1.4;
+        // border-radius: 1px;
+        transform: scale(1);
+        box-shadow: 0 0 0 .1em currentColor;
     }
 }
 .magi-logo{
@@ -148,10 +180,9 @@ header{
     background:var(--color-blue);
     text-align: center;
     padding:0;
-    margin:.4em;
     color:var(--color-black);
     
-    font-family: sans-serif;
+    font-family: 'Neue Helvetica',Helvetica,sans-serif;
     h2{
         font-size:4em;
         font-weight: 900;
@@ -171,8 +202,8 @@ header{
 
     &.melchior{
         left:50%;
-        transform: translate(20%,30%);
-        transform: translate(30%,5%) rotate(-60deg);
+        // transform: translate(20%,30%);
+        transform: translate(35%,10%) rotate(-57deg);
         h2{
             &:before{
                 content:'1';
@@ -181,7 +212,7 @@ header{
     }
     &.malthasar{
         left:50%;
-        transform: translate(-50%,-140%);
+        transform: translate(-50%,-135%);
         h2{
             &:before{
                 content:'2';
@@ -190,8 +221,8 @@ header{
     }
     &.casper{
         right:50%;
-        transform: translate(-20%,30%);
-        transform: translate(-30%,5%) rotate(60deg);
+        // transform: translate(-20%,30%);
+        transform: translate(-35%,10%) rotate(57deg);
         h2{
             &:before{
                 content:'3';
@@ -222,15 +253,19 @@ header{
         transform: scale(.85,1);
     }
 
-    color:var(--color-green);
-    &:before{
-        content: '承認';
+
+    &[data-status="reject"]{
+        color:var(--color-red);
+        &:before{
+            content: '否定';
+        }
     }
-
-
-    color:var(--color-red);
-    &:before{
-        content: '否定';
+    
+    &[data-status="resolve"]{
+        color:var(--color-green);
+        &:before{
+            content: '承認';
+        }
     }
 }
 
@@ -244,7 +279,7 @@ body[data-status="voting"]{
         h2{
             &:before{
                 font-size:.6em;
-                font-family: 'EVA-Matisse_Classic',serif;
+                font-family: FOTMatisseProEB,'EVA-Matisse_Classic',serif;
                 content: '承認';
                 animation: value-flash .4s infinite step-end;
             }
@@ -289,16 +324,25 @@ body[data-status="voting"]{
 }
 
 body[data-status="voted"]{
+    .reset{
+        visibility:visible;
+    }
     .final-vote-status{
         visibility: visible;
+        margin:0 .5em;
     }
     .magi-item{
+
+        h2{
+            &:before{
+                font-size:.6em;
+                font-family: FOTMatisseProEB,'EVA-Matisse_Classic',serif;
+            }
+        }
         &[data-status="resolve"]{
-            background:var(--color-green);
+            // background:var(--color-green);
             h2{
                 &:before{
-                    font-size:.6em;
-                    font-family: 'EVA-Matisse_Classic',serif;
                     content:'承認';
                 }
             }
@@ -307,8 +351,6 @@ body[data-status="voted"]{
             background:var(--color-red);
             h2{
                 &:before{
-                    font-size:.6em;
-                    font-family: 'EVA-Matisse_Classic',serif;
                     content:'否定';
                 }
             }
@@ -318,5 +360,41 @@ body[data-status="voted"]{
                 70%{ background:#BB0000; }
             }
         }
+    }
+}
+
+
+footer{
+    position: absolute;
+    bottom:0;
+    right:0;
+    font-size:14px;
+    padding:.5em .7em;
+    color:var(--color-orange);
+    a{
+        color:var(--color-orange);
+    }
+}
+
+
+@media (max-width:1000px), (max-height:800px) {
+    html{
+        font-size:1.5em;
+    }
+}
+
+@media (max-width:700px), (max-height:700px){
+    html{
+        font-size:1.2em;
+    }
+}
+@media (max-width:520px), (max-height:520px){
+    html{
+        font-size:.9em;
+    }
+}
+@media (max-width:300px), (max-height:300px){
+    html{
+        font-size:.8em;
     }
 }
