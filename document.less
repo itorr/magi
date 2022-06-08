@@ -4,6 +4,7 @@
     --color-blue: aquamarine;
     --color-black: #000;
     --color-red: #C00;
+    --color-green:chartreuse;
     --body-padding: 20px;
 }
 html{
@@ -166,23 +167,46 @@ header{
     position: absolute;
     top:50%;
 
+
     &.melchior{
         left:50%;
         transform: translate(20%,30%);
         transform: translate(30%,5%) rotate(-60deg);
+        h2{
+            &:before{
+                content:'1';
+            }
+        }
     }
     &.malthasar{
         left:50%;
         transform: translate(-50%,-140%);
+        h2{
+            &:before{
+                content:'2';
+            }
+        }
     }
     &.casper{
         right:50%;
         transform: translate(-20%,30%);
         transform: translate(-30%,5%) rotate(60deg);
+        h2{
+            &:before{
+                content:'3';
+            }
+        }
     }
     
     &[data-status="reject"]{
         background:var(--color-red);
+        h2{
+            &:before{
+                font-size:.6em;
+                font-family: 'EVA-Matisse_Classic',serif;
+                content:'否定';
+            }
+        }
     }
 }
 
@@ -204,7 +228,60 @@ header{
         display: inline-block;
         transform: scale(.85,1);
     }
-    &[data-status="voting"]{
+
+    color:var(--color-green);
+    &:before{
+        content: '承認';
+    }
+
+
+    color:var(--color-red);
+    &:before{
+        content: '否定';
+    }
+}
+
+
+body[data-status="voting"]{
+    .magi-item{
+        background:var(--color-blue);
+        animation: magi-flash .4s infinite step-end;
+
+
+        h2{
+            &:before{
+                font-size:.6em;
+                font-family: 'EVA-Matisse_Classic',serif;
+                content: '承認';
+                animation: value-flash .4s infinite step-end;
+            }
+        }
+
+        &.melchior{
+            animation-delay: .1s;
+        }
+        &.malthasar{
+            animation-delay: .2s;
+        }
+        &.casper{
+            animation-delay: .3s;
+        }
+
+
+    }
+    @keyframes magi-flash {
+        // 49.9%{ background-color: var(--color-blue); }
+        50%{ background-color: var(--color-red); }
+    }
+
+    @keyframes value-flash {
+        50%{
+            content: '否定';
+        }
+    }
+
+
+    .final-vote-status{
         color: var(--color-yellow);
         &:before{
             content: '審議中';
