@@ -1,4 +1,213 @@
+:root{
+    --color-orange: orange;
+    --color-yellow: #ffff00;
+    --color-blue: aquamarine;
+    --color-black: #000;
+    --color-red: #C00;
+    --body-padding: 20px;
+}
 html{
-    background:#000;
+    font-size:2em;
+    line-height: 1.2;
+    font-weight: 900;
+    font-family: 'EVA-Matisse_Classic',serif;
+    background:var(--color-orange);
     color:#FFF;
+    text-align: center;
+    overflow: hidden;
+    // background: repeating-linear-gradient(
+    //     45deg,
+    //     var(--color-black), 
+    //     var(--color-black) 1em,
+    //     var(--color-orange) 1em,
+    //     var(--color-orange) 2em
+    // );
+    // animation: origin 5s infinite linear;
+}
+@keyframes origin {
+    100%{
+        background-position: 1em 1em;
+    }
+}
+body{
+    background:var(--color-black);
+    padding:20px;
+    margin:var(--body-padding);
+    box-sizing: border-box;
+    height:calc(100vh - var(--body-padding) * 2);
+    position: relative;
+}
+
+h1,h2,h3,h4,
+p{
+    margin:0;
+}
+header{
+    &:after{
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    color: var(--color-orange);
+    h1{
+        font-size: 4em;
+        display: inline-block;
+        transform: scale(1,0.8);
+        position: relative;
+        padding:0 .1em;
+        margin:0 .05em;
+        letter-spacing: .1em;
+        &:nth-child(1){
+            float: left;
+        }
+        &:nth-child(2){
+            float: right;
+        }
+        &:before,
+        &:after{
+            content: '';
+            position: absolute;
+            left:0;
+            right:0;
+            height:2px;
+            border-radius: .5px;
+        }
+        &:before{
+            top:0;
+            box-shadow: 
+                0 0 0 2px var(--color-blue),
+                0 -8px 0 .1px var(--color-black),
+                0 -8px 0 2px var(--color-blue);
+        }
+        &:after{
+            bottom:0;
+            box-shadow: 
+                0 0 0 2px var(--color-blue),
+                0 8px 0 .1px var(--color-black),
+                0 8px 0 2px var(--color-blue);
+        }
+    }
+}
+.config-box{
+    font-weight: 200;
+    font-family: monospace;
+    font-size:.8em;
+    text-align: left;
+    padding:2em .3em;
+    
+    color: var(--color-orange);
+    h4{
+        font-size:3em;
+        transform: scale(.6,1);
+        transform-origin: 0 0;
+    }
+    p{
+        line-height: 1.4;
+        transform: scale(1,1.4);
+        b{
+            margin-left:.2em;
+        }
+    }
+}
+.magi-logo{
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
+
+    width: 8em;
+    height: 8em;
+    line-height: 8em;
+
+    color: var(--color-orange);
+
+    border-radius: 9em;
+    font-size: 2em;
+    box-shadow:0 0 0 6px var(--color-orange);
+}
+.magi-list{
+    // position: absolute;
+    // bottom:0;
+    // left:0;
+    // right:0;
+    // padding:20px;
+}
+.magi-item{
+    width: 8em;
+    height:8em;
+    display: inline-block;
+    box-shadow: 
+        0 0 0 2px var(--color-black),
+        0 0 0 8px var(--color-orange),
+        0 0 0 10px var(--color-black);
+    background:var(--color-blue);
+    text-align: center;
+    padding:0;
+    margin:.4em;
+    color:var(--color-black);
+    
+    font-family: sans-serif;
+    h2{
+        font-size:4em;
+        font-weight: 900;
+        transform: scale(1.2 ,1);
+        font-weight: 600;
+        line-height: 1.5;
+    }
+    h3{
+        font-size:1em;
+        line-height: 2em;
+        letter-spacing: .1em;
+    }
+
+    position: absolute;
+    top:50%;
+
+    &.melchior{
+        left:50%;
+        transform: translate(20%,30%);
+        transform: translate(30%,5%) rotate(-60deg);
+    }
+    &.malthasar{
+        left:50%;
+        transform: translate(-50%,-140%);
+    }
+    &.casper{
+        right:50%;
+        transform: translate(-20%,30%);
+        transform: translate(-30%,5%) rotate(60deg);
+    }
+    
+    &[data-status="reject"]{
+        background:var(--color-red);
+    }
+}
+
+
+.final-vote-status{
+    position: absolute;
+    top:4em;
+    right:.5em;
+    font-size:2em;
+    line-height: 1;
+    padding:.1em 0;
+
+    box-shadow: 
+        0 0 0 .03em currentColor,
+        0 0 0 .07em var(--color-black),
+        0 0 0 .1em currentColor;
+    // border-radius: 1px;
+    &:before{
+        display: inline-block;
+        transform: scale(.85,1);
+    }
+    &[data-status="voting"]{
+        color: var(--color-yellow);
+        &:before{
+            content: '審議中';
+        }
+    }
 }
