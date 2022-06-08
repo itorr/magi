@@ -22,10 +22,11 @@ const one = _=>{
 
     if(reject){
         items.forEach(el=>el.setAttribute('data-status','resolve'));
-        if(Math.random() > .4){
+        if(Math.random() > .5){
             casperEl.setAttribute('data-status','reject');
         }else{
             items[Math.floor(items.length*Math.random())].setAttribute('data-status','reject');
+            if(Math.random() > .6)items[Math.floor(items.length*Math.random())].setAttribute('data-status','reject');
         }
         // document.body.setAttribute('data-status','data-status="voted"')
         finalVoteStatusEl.setAttribute('data-status','reject');
