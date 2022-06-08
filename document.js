@@ -1,17 +1,21 @@
 
 const finalVoteStatusEl = document.querySelector('.final-vote-status');
 const casperEl = document.querySelector('.casper');
+const items = [...document.querySelectorAll('.magi-item')];
+
 const randAll = _=>{
     document.querySelector('.code').innerHTML = 100 + Math.floor(Math.random() * 600);
 };
 const one = _=>{
+    const voteStatus = document.body.getAttribute('data-status') === 'voting'?'voted':'voting';
     document.body.setAttribute(
         'data-status',
-        document.body.getAttribute('data-status') === 'voting'?'voted':'voting'
+        voteStatus
     );
+    
+    if(voteStatus === 'voted') return;
 
     const reject = Math.random() > .6;
-    const items = [...document.querySelectorAll('.magi-item')];
 
     if(reject){
         items.forEach(el=>el.setAttribute('data-status','resolve'));

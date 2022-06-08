@@ -7,5 +7,8 @@ MAGI 一键决议工具。通过分别代表了身为开发者的赤木直子的
 ## 地址
 https://lab.magiconch.com/magi/
 
+## 微博
+https://weibo.com/1197780522/LwOVxaMdO
+
 ## 字体授权
 https://fontworks.co.jp/products/evamatisse/
