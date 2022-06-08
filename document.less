@@ -6,7 +6,9 @@
     --color-red: #C00;
     --color-green:chartreuse;
     --body-padding: 20px;
+    --app-height: 100vh;
 }
+
 
 @font-face {
     font-weight: 900;
@@ -49,8 +51,18 @@ body{
     padding:20px;
     margin:var(--body-padding);
     box-sizing: border-box;
-    height:calc(100vh - var(--body-padding) * 2);
+    height:calc(var(--app-height) - var(--body-padding) * 2);
+    // height: -webkit-fill-available;
     position: relative;
+}
+
+
+html[data-device="iphone"],
+html[data-device="ipad"],
+html[data-device="ipod"]{
+    body{
+        height: -webkit-fill-available;
+    }
 }
 
 h1,h2,h3,h4,

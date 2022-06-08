@@ -1,4 +1,7 @@
 
+document.documentElement.setAttribute('data-device',String(navigator.userAgent.match(/steam|iPhone|iPad|iPod|macos/i)).toLowerCase())
+
+
 const finalVoteStatusEl = document.querySelector('.final-vote-status');
 const casperEl = document.querySelector('.casper');
 const items = [...document.querySelectorAll('.magi-item')];
@@ -52,3 +55,23 @@ document.querySelector('.reset').onclick = e=>{
 document.querySelector('footer').onclick=e=>e.stopPropagation();
 
 
+
+window._hmt = [];
+window.dataLayer = [
+    ['js', new Date()],
+    ['config', 'G-13BQC1VDD8']
+];
+window.gtag = function(){dataLayer.push(arguments)};
+
+const headEl = document.querySelector('head');
+const loadScript = (src,cb=_=>{},el) =>{
+	el = document.createElement('script');
+	el.src = src;
+	el.onload=cb;
+	headEl.appendChild(el);
+};
+
+setTimeout(_=>{
+	('//hm.baidu.com/hm.js?f4e477c61adf5c145ce938a05611d5f0');
+	loadScript('//www.googletagmanager.com/gtag/js?id=G-13BQC1VDD8');
+},400);
