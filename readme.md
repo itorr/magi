@@ -1,6 +1,6 @@
-![MAGI 决议器](banner.png)
+![MAGI System](banner.png)
 
-# MAGI 一键决议系统
+# 👩🏼「MAGI System」 一键决议系统
 
 通过 `MELCHIOR`、`BALTHASAR`、`CASPER` 三大模块，虚拟人类所具有的多重身份思考模式，对案件进行智能决议。
 
