@@ -60,8 +60,9 @@ body{
 html[data-device="iphone"],
 html[data-device="ipad"],
 html[data-device="ipod"]{
+    --app-height:-webkit-fill-available;
     body{
-        height: -webkit-fill-available;
+        min-height: -webkit-fill-available;
     }
 }
 
@@ -397,6 +398,11 @@ footer{
 @media (max-width:700px), (max-height:700px){
     html{
         font-size:1.2em;
+    }
+    .magi-list{
+        position: absolute;
+        top: 60%;
+        left: 50%;
     }
 }
 @media (max-width:520px), (max-height:520px){
