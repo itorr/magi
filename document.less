@@ -24,6 +24,7 @@ html{
     //     var(--color-orange) 2em
     // );
     // animation: origin 5s infinite linear;
+    cursor: pointer;
 }
 @keyframes origin {
     100%{
@@ -198,16 +199,6 @@ header{
         }
     }
     
-    &[data-status="reject"]{
-        background:var(--color-red);
-        h2{
-            &:before{
-                font-size:.6em;
-                font-family: 'EVA-Matisse_Classic',serif;
-                content:'否定';
-            }
-        }
-    }
 }
 
 
@@ -218,6 +209,8 @@ header{
     font-size:2em;
     line-height: 1;
     padding:.1em 0;
+
+    visibility: hidden;
 
     box-shadow: 
         0 0 0 .03em currentColor,
@@ -282,9 +275,48 @@ body[data-status="voting"]{
 
 
     .final-vote-status{
+        visibility: visible;
+        animation: flash .4s infinite step-end;
         color: var(--color-yellow);
         &:before{
             content: '審議中';
+        }
+    }
+    @keyframes flash {
+        // 49.9%{ background-color: var(--color-blue); }
+        60%{ visibility: hidden; }
+    }
+}
+
+body[data-status="voted"]{
+    .final-vote-status{
+        visibility: visible;
+    }
+    .magi-item{
+        &[data-status="resolve"]{
+            background:var(--color-green);
+            h2{
+                &:before{
+                    font-size:.6em;
+                    font-family: 'EVA-Matisse_Classic',serif;
+                    content:'承認';
+                }
+            }
+        }
+        &[data-status="reject"]{
+            background:var(--color-red);
+            h2{
+                &:before{
+                    font-size:.6em;
+                    font-family: 'EVA-Matisse_Classic',serif;
+                    content:'否定';
+                }
+            }
+            animation: red-flash 1s infinite ease;
+
+            @keyframes red-flash {
+                70%{ background:#BB0000; }
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
     <title>MAGI System 一键決議系统</title>
     <link rel="stylesheet" href="document.css">
 </head>
-<body data-status="voting">
+<body>
     <div class="magi-box">
         <header>
             <h1>提訴</h1>
@@ -23,15 +23,18 @@
         </div>
         <div class="final-vote-status" data-status="voting"></div>
         <div class="magi-list">
-            <div class="magi-item melchior">
+            <div class="magi-item melchior" 
+                data-status="resolve">
                 <h3>MELCHIOR</h3>
                 <h2></h2>
             </div>
-            <div class="magi-item malthasar">
+            <div class="magi-item malthasar" 
+                data-status="resolve">
                 <h2></h2>
                 <h3>BALTHASAR</h3>
             </div>
-            <div class="magi-item casper" data-status="reject">
+            <div class="magi-item casper" 
+                data-status="reject">
                 <h3>CASPER</h3>
                 <h2></h2>
             </div>
