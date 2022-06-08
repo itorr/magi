@@ -4,8 +4,7 @@ const casperEl = document.querySelector('.casper');
 const randAll = _=>{
     document.querySelector('.code').innerHTML = 100 + Math.floor(Math.random() * 600);
 };
-randAll();
-document.body.onclick = _=>{
+const one = _=>{
     document.body.setAttribute(
         'data-status',
         document.body.getAttribute('data-status') === 'voting'?'voted':'voting'
@@ -29,7 +28,18 @@ document.body.onclick = _=>{
     }
 
     randAll()
+};
+randAll();
+document.body.onclick = one;
+window.onkeydown = e=>{
+    const { keyCode } = e;
+
+    if(keyCode === 32){
+        one();
+    }
+
 }
+
 document.querySelector('.reset').onclick = e=>{
     e.stopPropagation();
     document.body.removeAttribute('data-status');
