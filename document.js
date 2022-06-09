@@ -42,7 +42,7 @@ const one = _=>{
     randAll()
 };
 randAll();
-bodyEl.onclick = one;
+$('.magi-box').onclick = one;
 window.onkeydown = e=>{
     const { keyCode } = e;
 
