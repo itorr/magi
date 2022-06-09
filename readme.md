@@ -11,10 +11,10 @@ https://lab.magiconch.com/magi/
 点击鼠标 或者 敲击空格 即可开启决议
 
 ## 功能
- [-] 基础决议
- [-] EX MODE
- [-] 概率调整
- [ ] 优先级
+- [-] 基础决议
+- [-] EX MODE
+- [-] 概率调整
+- [ ] 优先级
 
 ## 微博
 https://weibo.com/1197780522/LwOVxaMdO
