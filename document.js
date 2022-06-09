@@ -19,11 +19,6 @@ const audioCtx = new AudioContext();
 let pulseHz = 2080;
 let lfoHz = 10;
 
-
-
-
-
-
 let osc;
 let lfo;
 
@@ -38,7 +33,7 @@ function play() {
     
     lfo = audioCtx.createOscillator();
     lfo.type = 'square';
-    lfo.frequency.value = lfoHz;
+    lfo.frequency.value = exMode?60:10;
 
     lfo.connect(amp.gain);
     osc.connect(amp).connect(audioCtx.destination);
