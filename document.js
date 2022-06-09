@@ -64,14 +64,14 @@ $('footer').onclick=e=>e.stopPropagation();
 
 // ex mode
 let exMode = false;
-const exModeBEl = $('.ex-mode-switch b');
-exModeBEl.onclick = e=>{
+const exModeEl = $('.ex-mode');
+exModeEl.onclick = e=>{
     e.stopPropagation();
 
     exMode = !exMode;
     bodyEl.setAttribute('data-ex-mode',exMode);
 
-    exModeBEl.innerHTML = exMode?'ON':'OFF';
+    exModeEl.innerHTML = exMode?'ON':'OFF';
 }
 
 // input file

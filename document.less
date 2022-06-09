@@ -210,6 +210,23 @@ header{
     border-radius: 9em;
     font-size: 2em;
     box-shadow:0 0 0 6px var(--color-orange);
+
+    &:after{
+        display: none;
+        content:'System';
+        text-transform: uppercase;
+        font-weight: 400;
+        font-family: 'Neue Helvetica',Helvetica,sans-serif;
+        position: absolute;
+        top:57%;
+        left:0;
+        right:0;
+        text-align: center;
+        line-height: 1;
+        font-size:12px;
+        opacity: 0;
+        transform: scale(.4);
+    }
 }
 .magi-list{
     // position: absolute;
@@ -467,6 +484,10 @@ body{
     transition:
         top 1s ease,
         transform 1s ease;
+        &:after{
+            transition:
+                opacity .5s ease;
+        }
 }
 .magi-box{
     transition:
@@ -484,6 +505,9 @@ body[data-loading="true"]{
         top:0;
         transition:transform .3s ease;
         transform: scale(4,4);
+        &:after{
+            opacity: 1;
+        }
     }
     .magi-box{
         transform: scale(.9);
