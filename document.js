@@ -57,6 +57,17 @@ document.querySelector('footer').onclick=e=>e.stopPropagation();
 
 
 
+let exMode = false;
+const exModeBEl = document.querySelector('.ex-mode-switch b');
+exModeBEl.onclick = e=>{
+    e.stopPropagation();
+
+    exMode = !exMode;
+    document.body.setAttribute('data-ex-mode',exMode);
+
+    exModeBEl.innerHTML = exMode?'ON':'OFF';
+}
+
 window._hmt = [];
 window.dataLayer = [
     ['js', new Date()],

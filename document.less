@@ -7,8 +7,13 @@
     --color-green:chartreuse;
     --body-padding: 20px;
     --app-height: 100vh;
+
+    --flash-time: .4s;
 }
 
+body[data-ex-mode="true"]{
+    --flash-time: .1s;
+}
 
 @font-face {
     font-weight: 900;
@@ -281,11 +286,10 @@ header{
     }
 }
 
-
 body[data-status="voting"]{
     .magi-item{
         background:var(--color-blue);
-        animation: magi-flash .4s infinite step-end;
+        animation: magi-flash var(--flash-time) infinite step-end;
 
 
         h2{
@@ -293,7 +297,7 @@ body[data-status="voting"]{
                 font-size:.6em;
                 font-family: FOTMatisseProEB,'EVA-Matisse_Classic',serif;
                 content: '承認';
-                animation: value-flash .4s infinite step-end;
+                animation: value-flash var(--flash-time) infinite step-end;
             }
         }
 
@@ -323,7 +327,7 @@ body[data-status="voting"]{
 
     .final-vote-status{
         visibility: visible;
-        animation: flash .4s infinite step-end;
+        animation: flash var(--flash-time) infinite step-end;
         color: var(--color-yellow);
         &:before{
             content: '審議中';
