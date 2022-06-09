@@ -8,38 +8,129 @@ const casperEl = $('.casper');
 const items = $$('.magi-item');
 const bodyEl = document.body;
 
+
+// https://codepen.io/jonoliver/pen/NoawPv
+// https://tomhazledine.com/web-audio-delay/
+
+// https://mdn.github.io/webaudio-examples/step-sequencer/
+let sample;
+const audioCtx = new AudioContext();
+
+let pulseHz = 2080;
+let lfoHz = 10;
+
+
+
+
+
+
+let osc;
+let lfo;
+
+function play() {
+    osc = audioCtx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = pulseHz;
+    
+    const amp = audioCtx.createGain();
+    amp.gain.value = 1;
+
+    
+    lfo = audioCtx.createOscillator();
+    lfo.type = 'square';
+    lfo.frequency.value = lfoHz;
+
+    lfo.connect(amp.gain);
+    osc.connect(amp).connect(audioCtx.destination);
+    lfo.start(0);
+    osc.start(0);
+}
+
+const master = audioCtx.destination;
+
+
+
+let VCO;
+const playOscillator = (hz=3400)=>{
+    const gain = audioCtx.createGain();
+    gain.connect(audioCtx.destination);
+    gain.gain.volume = .5;
+
+    VCO = audioCtx.createOscillator();
+    VCO.frequency.value = hz;
+    VCO.connect(gain);
+    VCO.start(0);
+    VCO.stop(audioCtx.currentTime + 1)
+}
+function stopAll() {
+    try{
+        osc.stop(0);
+        lfo.stop(0);
+    }catch(e){}
+    try{
+        VCO.stop(audioCtx.currentTime);
+    }catch(e){}
+    
+}
+
 const randAll = _=>{
     $('.code').innerHTML = 100 + Math.floor(Math.random() * 600);
 };
 
+let sound = false;
+const soundEl = $('.sound');
+soundEl.onclick = e=>{
+    e.stopPropagation();
+    sound = !sound;
+    soundEl.setAttribute('data-text',sound?'ON':'OFF');
+};
+soundEl.setAttribute('data-text',sound?'ON':'OFF');
+
 let volume = 60;
+let reject;
 const one = _=>{
     const voteStatus = bodyEl.getAttribute('data-status') === 'voting'?'voted':'voting';
     bodyEl.setAttribute(
         'data-status',
         voteStatus
     );
-    
-    if(voteStatus === 'voted') return;
 
-    const reject = (Math.random() * 100) > volume;
 
-    if(reject){
-        items.forEach(el=>el.setAttribute('data-status','resolve'));
-        if(Math.random() > .5){
-            casperEl.setAttribute('data-status','reject');
+
+    if(sound){
+        stopAll();
+        if(voteStatus === 'voted'){
+            playOscillator(reject?3400:2000);
         }else{
-            items[Math.floor(items.length*Math.random())].setAttribute('data-status','reject');
-            if(Math.random() > .6)items[Math.floor(items.length*Math.random())].setAttribute('data-status','reject');
+            play();
         }
-        // bodyEl.setAttribute('data-status','data-status="voted"')
-        finalVoteStatusEl.setAttribute('data-status','reject');
-    }else{
-        items.forEach(el=>el.setAttribute('data-status','resolve'));
-        finalVoteStatusEl.setAttribute('data-status','resolve');
     }
+    
+    if(voteStatus === 'voted'){
 
-    randAll()
+    }else{
+        reject = (Math.random() * 100) > volume;
+
+        if(reject){
+            items.forEach(el=>el.setAttribute('data-status','resolve'));
+            if(Math.random() > .5){
+                casperEl.setAttribute('data-status','reject');
+            }else{
+                items[Math.floor(items.length*Math.random())].setAttribute('data-status','reject');
+                if(Math.random() > .6)items[Math.floor(items.length*Math.random())].setAttribute('data-status','reject');
+            }
+            // bodyEl.setAttribute('data-status','data-status="voted"')
+            finalVoteStatusEl.setAttribute('data-status','reject');
+        }else{
+            items.forEach(el=>el.setAttribute('data-status','resolve'));
+            finalVoteStatusEl.setAttribute('data-status','resolve');
+        }
+    
+        randAll()
+    }
+    
+
+
 };
 randAll();
 $('.magi-box').onclick = one;
@@ -70,9 +161,9 @@ exModeEl.onclick = e=>{
 
     exMode = !exMode;
     bodyEl.setAttribute('data-ex-mode',exMode);
-
-    exModeEl.innerHTML = exMode?'ON':'OFF';
-}
+    exModeEl.setAttribute('data-text',exMode?'ON':'OFF');
+};
+exModeEl.setAttribute('data-text',exMode?'ON':'OFF');
 
 // input file
 const fileEl = $('.file');
@@ -112,6 +203,7 @@ const priorityEl = $('.priority');
 let priority = 'A';
 const prioritys = [
     'E',
+    '+++',
     'A',
     'AA',
     'AAA',
