@@ -1,19 +1,21 @@
 
 document.documentElement.setAttribute('data-device',String(navigator.userAgent.match(/steam|iPhone|iPad|iPod|macos/i)).toLowerCase())
 
-
-const finalVoteStatusEl = document.querySelector('.final-vote-status');
-const casperEl = document.querySelector('.casper');
-const items = [...document.querySelectorAll('.magi-item')];
+const $ = s=>document.querySelector(s);
+const $$ = s=>[...document.querySelectorAll(s)];
+const finalVoteStatusEl = $('.final-vote-status');
+const casperEl = $('.casper');
+const items = $$('.magi-item');
+const bodyEl = document.body;
 
 const randAll = _=>{
-    document.querySelector('.code').innerHTML = 100 + Math.floor(Math.random() * 600);
+    $('.code').innerHTML = 100 + Math.floor(Math.random() * 600);
 };
 
 let volume = 60;
 const one = _=>{
-    const voteStatus = document.body.getAttribute('data-status') === 'voting'?'voted':'voting';
-    document.body.setAttribute(
+    const voteStatus = bodyEl.getAttribute('data-status') === 'voting'?'voted':'voting';
+    bodyEl.setAttribute(
         'data-status',
         voteStatus
     );
@@ -30,7 +32,7 @@ const one = _=>{
             items[Math.floor(items.length*Math.random())].setAttribute('data-status','reject');
             if(Math.random() > .6)items[Math.floor(items.length*Math.random())].setAttribute('data-status','reject');
         }
-        // document.body.setAttribute('data-status','data-status="voted"')
+        // bodyEl.setAttribute('data-status','data-status="voted"')
         finalVoteStatusEl.setAttribute('data-status','reject');
     }else{
         items.forEach(el=>el.setAttribute('data-status','resolve'));
@@ -40,7 +42,7 @@ const one = _=>{
     randAll()
 };
 randAll();
-document.body.onclick = one;
+bodyEl.onclick = one;
 window.onkeydown = e=>{
     const { keyCode } = e;
 
@@ -52,36 +54,36 @@ window.onkeydown = e=>{
 
 
 //reset
-document.querySelector('.reset').onclick = e=>{
+$('.reset').onclick = e=>{
     e.stopPropagation();
-    document.body.removeAttribute('data-status');
+    bodyEl.removeAttribute('data-status');
 }
 
-document.querySelector('footer').onclick=e=>e.stopPropagation();
+$('footer').onclick=e=>e.stopPropagation();
 
 
 // ex mode
 let exMode = false;
-const exModeBEl = document.querySelector('.ex-mode-switch b');
+const exModeBEl = $('.ex-mode-switch b');
 exModeBEl.onclick = e=>{
     e.stopPropagation();
 
     exMode = !exMode;
-    document.body.setAttribute('data-ex-mode',exMode);
+    bodyEl.setAttribute('data-ex-mode',exMode);
 
     exModeBEl.innerHTML = exMode?'ON':'OFF';
 }
 
 // input file
-const fileEl = document.querySelector('.file');
+const fileEl = $('.file');
 fileEl.onclick = e=>{
     e.stopPropagation();
-    fileEl.innerText = prompt('INPUT FILE',fileEl.innerText)
+    fileEl.innerText = prompt('INPUT FILE',fileEl.innerText) || 'MAGI_SYS';
 }
 
 
 // volume
-const volumeEl = document.querySelector('.volume');
+const volumeEl = $('.volume');
 const volumes = [
     1,
     10,
@@ -105,6 +107,36 @@ volumeEl.onclick = e=>{
     volumeEl.setAttribute('data-text',volume);
 }
 
+// priority
+const priorityEl = $('.priority');
+let priority = 'A';
+const prioritys = [
+    'E',
+    'A',
+    'AA',
+    'AAA',
+];
+priorityEl.onclick = e=>{
+    e.stopPropagation();
+    const index = prioritys.indexOf(priority);
+        
+    let nextIndex = index + 1;
+
+    if(nextIndex >= prioritys.length){
+        nextIndex = 0;
+    }
+
+    priority = prioritys[nextIndex];
+
+    priorityEl.setAttribute('data-text',priority);
+}
+
+
+
+
+
+
+
 window._hmt = [];
 window.dataLayer = [
     ['js', new Date()],
@@ -112,7 +144,7 @@ window.dataLayer = [
 ];
 window.gtag = function(){dataLayer.push(arguments)};
 
-const headEl = document.querySelector('head');
+const headEl = $('head');
 const loadScript = (src,cb=_=>{},el) =>{
 	el = document.createElement('script');
 	el.src = src;

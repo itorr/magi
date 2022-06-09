@@ -14,7 +14,7 @@ https://lab.magiconch.com/magi/
 - [x] 基础决议
 - [x] EX MODE
 - [x] 概率调整
-- [ ] 优先级
+- [x] 优先级
 
 ## 微博
 https://weibo.com/1197780522/LwOVxaMdO
