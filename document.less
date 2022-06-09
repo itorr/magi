@@ -136,6 +136,8 @@ header{
     text-align: left;
     padding:2em .3em;
     
+    text-transform:uppercase;
+
     color: var(--color-orange);
     h4{
         font-size:3em;
@@ -159,6 +161,23 @@ header{
         // border-radius: 1px;
         transform: scale(1);
         box-shadow: 0 0 0 .1em currentColor;
+    }
+}
+
+[data-text]{
+    &:before{
+        content: attr(data-text);
+    }
+}
+.volume{
+    &:after{
+        content: '%';
+    }
+
+    &[data-text="1"]{
+        &:before{
+            content:'0.0000001';
+        }
     }
 }
 .magi-logo{

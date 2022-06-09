@@ -9,6 +9,8 @@ const items = [...document.querySelectorAll('.magi-item')];
 const randAll = _=>{
     document.querySelector('.code').innerHTML = 100 + Math.floor(Math.random() * 600);
 };
+
+let volume = 60;
 const one = _=>{
     const voteStatus = document.body.getAttribute('data-status') === 'voting'?'voted':'voting';
     document.body.setAttribute(
@@ -18,7 +20,7 @@ const one = _=>{
     
     if(voteStatus === 'voted') return;
 
-    const reject = Math.random() > .6;
+    const reject = (Math.random() * 100) > volume;
 
     if(reject){
         items.forEach(el=>el.setAttribute('data-status','resolve'));
@@ -48,6 +50,8 @@ window.onkeydown = e=>{
 
 }
 
+
+//reset
 document.querySelector('.reset').onclick = e=>{
     e.stopPropagation();
     document.body.removeAttribute('data-status');
@@ -56,7 +60,7 @@ document.querySelector('.reset').onclick = e=>{
 document.querySelector('footer').onclick=e=>e.stopPropagation();
 
 
-
+// ex mode
 let exMode = false;
 const exModeBEl = document.querySelector('.ex-mode-switch b');
 exModeBEl.onclick = e=>{
@@ -66,6 +70,39 @@ exModeBEl.onclick = e=>{
     document.body.setAttribute('data-ex-mode',exMode);
 
     exModeBEl.innerHTML = exMode?'ON':'OFF';
+}
+
+// input file
+const fileEl = document.querySelector('.file');
+fileEl.onclick = e=>{
+    e.stopPropagation();
+    fileEl.innerText = prompt('INPUT FILE',fileEl.innerText)
+}
+
+
+// volume
+const volumeEl = document.querySelector('.volume');
+const volumes = [
+    1,
+    10,
+    30,
+    60,
+    90,
+    65535,
+];
+volumeEl.onclick = e=>{
+    e.stopPropagation();
+    const index = volumes.indexOf(volume);
+        
+    let nextIndex = index + 1;
+
+    if(nextIndex >= volumes.length){
+        nextIndex = 0;
+    }
+
+    volume = volumes[nextIndex];
+
+    volumeEl.setAttribute('data-text',volume);
 }
 
 window._hmt = [];
