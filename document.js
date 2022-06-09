@@ -55,7 +55,7 @@ const playOscillator = (hz=3400)=>{
     VCO.frequency.value = hz;
     VCO.connect(gain);
     VCO.start(0);
-    VCO.stop(audioCtx.currentTime + 1)
+    VCO.stop(audioCtx.currentTime + .7)
 }
 function stopAll() {
     try{
