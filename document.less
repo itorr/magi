@@ -59,6 +59,15 @@ body{
     // height: -webkit-fill-available;
     position: relative;
     overflow: hidden;
+    &[data-status="voted"]{
+        transition: none;
+        &[data-vote-status="resolve"]{
+            box-shadow: 0 0 0 var(--body-padding) var(--color-green) inset;
+        };
+        &[data-vote-status="reject"]{
+            box-shadow: 0 0 0 var(--body-padding) var(--color-red) inset;
+        }
+    }
 }
 
 

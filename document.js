@@ -72,7 +72,7 @@ const randAll = _=>{
     $('.code').innerHTML = 100 + Math.floor(Math.random() * 600);
 };
 
-let sound = false;
+let sound = true;
 const soundEl = $('.sound');
 soundEl.onclick = e=>{
     e.stopPropagation();
@@ -120,6 +120,8 @@ const one = _=>{
             items.forEach(el=>el.setAttribute('data-status','resolve'));
             finalVoteStatusEl.setAttribute('data-status','resolve');
         }
+
+        bodyEl.setAttribute('data-vote-status',reject?'reject':'resolve');
     
         randAll()
     }
