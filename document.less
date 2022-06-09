@@ -39,7 +39,6 @@ html{
     // );
     // animation: origin 5s infinite linear;
 
-
     font-variant-east-asian: proportional-width;
     -moz-font-feature-settings: "pwid";
     -webkit-font-feature-settings: "pwid";
@@ -52,22 +51,36 @@ html{
 }
 body{
     background:var(--color-black);
-    padding:20px;
-    margin:var(--body-padding);
+    box-shadow: 0 0 0 var(--body-padding) var(--color-orange) inset;
+    // margin:var(--body-padding);
+    margin:0;
     box-sizing: border-box;
-    height:calc(var(--app-height) - var(--body-padding) * 2);
+    height:var(--app-height);
     // height: -webkit-fill-available;
     position: relative;
     cursor: pointer;
+    overflow: hidden;
 }
 
+
+.magi-box{
+    margin:var(--body-padding);
+    padding:var(--body-padding);
+    position: relative;
+    box-sizing: border-box;
+    height:calc(100% - var(--body-padding) * 2);
+}
 
 html[data-device="iphone"],
 html[data-device="ipad"],
 html[data-device="ipod"]{
     --app-height:-webkit-fill-available;
     body{
-        min-height: -webkit-fill-available;
+        min-height:-webkit-fill-available;
+        // height: calc(var(--app-height) - var(--body-padding) * 4);
+    }
+    .magi-box{
+        height:-webkit-fill-available;
     }
 }
 
@@ -419,6 +432,9 @@ footer{
 }
 
 @media (max-width:700px), (max-height:700px){
+    :root{
+        --body-padding: 15px;
+    }
     html{
         font-size:1.2em;
     }
@@ -439,5 +455,42 @@ footer{
 @media (max-width:300px), (max-height:300px){
     html{
         font-size:.8em;
+    }
+}
+
+
+body{
+    transition:
+        box-shadow 1s ease;
+}
+.magi-logo{
+    transition:
+        top 1s ease,
+        transform 1s ease;
+}
+.magi-box{
+    transition:
+        transform 1.4s ease-out,
+        opacity .5s ease;
+}
+footer{
+    transition:
+        transform .3s ease,
+        opacity .3s ease;
+}
+body[data-loading="true"]{
+    box-shadow: 0 0 0 0 var(--color-orange) inset;
+    .magi-logo{
+        top:0;
+        transition:transform .3s ease;
+        transform: scale(4,4);
+    }
+    .magi-box{
+        transform: scale(.9);
+        opacity: 0;
+    }
+    footer{
+        opacity: 0;
+        transform: translate(0,10px);
     }
 }

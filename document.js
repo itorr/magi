@@ -135,6 +135,10 @@ priorityEl.onclick = e=>{
 
 
 
+setTimeout(_=>{
+    bodyEl.removeAttribute('data-loading')
+},1000);
+
 
 
 window._hmt = [];
