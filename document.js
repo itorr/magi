@@ -17,7 +17,6 @@ let sample;
 const audioCtx = new AudioContext();
 
 let pulseHz = 2080;
-let lfoHz = 10;
 
 let osc;
 let lfo;
@@ -33,7 +32,7 @@ function play() {
     
     lfo = audioCtx.createOscillator();
     lfo.type = 'square';
-    lfo.frequency.value = exMode?60:10;
+    lfo.frequency.value = exMode?30:10;
 
     lfo.connect(amp.gain);
     osc.connect(amp).connect(audioCtx.destination);
@@ -42,8 +41,6 @@ function play() {
 }
 
 const master = audioCtx.destination;
-
-
 
 let VCO;
 const playOscillator = (hz=3400)=>{
@@ -55,7 +52,7 @@ const playOscillator = (hz=3400)=>{
     VCO.frequency.value = hz;
     VCO.connect(gain);
     VCO.start(0);
-    VCO.stop(audioCtx.currentTime + .7)
+    VCO.stop(audioCtx.currentTime + .8)
 }
 function stopAll() {
     try{

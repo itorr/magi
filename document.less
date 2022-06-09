@@ -27,7 +27,7 @@ html{
     font-weight: 900;
     font-family: FOTMatisseProEB,'EVA-Matisse_Classic',serif;
     background:var(--color-orange);
-    color:#FFF;
+    color: var(--color-orange);
     text-align: center;
     overflow: hidden;
     // background: repeating-linear-gradient(
@@ -62,9 +62,11 @@ body{
     &[data-status="voted"]{
         transition: none;
         &[data-vote-status="resolve"]{
+            color: var(--color-green);
             box-shadow: 0 0 0 var(--body-padding) var(--color-green) inset;
         };
         &[data-vote-status="reject"]{
+            color: var(--color-red);
             box-shadow: 0 0 0 var(--body-padding) var(--color-red) inset;
         }
     }
@@ -111,7 +113,6 @@ header{
         clear: both;
     }
 
-    color: var(--color-orange);
     h1{
         font-size: 4em;
         display: inline-block;
@@ -160,7 +161,6 @@ header{
     
     text-transform:uppercase;
 
-    color: var(--color-orange);
     h4{
         font-size:3em;
         transform: scale(.6,1);
@@ -214,11 +214,10 @@ header{
     height: 8em;
     line-height: 8em;
 
-    color: var(--color-orange);
 
     border-radius: 9em;
     font-size: 2em;
-    box-shadow:0 0 0 6px var(--color-orange);
+    box-shadow:0 0 0 6px currentColor;
 
     &:after{
         display: none;
@@ -250,12 +249,11 @@ header{
     display: inline-block;
     box-shadow: 
         0 0 0 2px var(--color-black),
-        0 0 0 8px var(--color-orange),
+        0 0 0 8px currentColor,
         0 0 0 10px var(--color-black);
     background:var(--color-blue);
     text-align: center;
     padding:0;
-    color:var(--color-black);
     
     font-family: 'Neue Helvetica',Helvetica,sans-serif;
     h2{
@@ -264,15 +262,18 @@ header{
         transform: scale(1.2 ,1);
         font-weight: 600;
         line-height: 1.5;
+        color: var(--color-black);
     }
     h3{
         font-size:1em;
         line-height: 2em;
         letter-spacing: .1em;
+        color: var(--color-black);
     }
 
     position: absolute;
     top:50%;
+
 
 
     &.melchior{
@@ -447,10 +448,6 @@ footer{
     right:0;
     font-size:14px;
     padding:.5em .7em;
-    color:var(--color-orange);
-    a{
-        color:var(--color-orange);
-    }
 }
 
 
@@ -490,6 +487,7 @@ footer{
 
 body{
     transition:
+        color 1s ease,
         box-shadow 1s ease;
 }
 .magi-logo{
