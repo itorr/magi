@@ -27,8 +27,7 @@ function play() {
     osc.frequency.value = pulseHz;
     
     const amp = audioCtx.createGain();
-    amp.gain.value = 1;
-
+    amp.gain.value =.5;
     
     lfo = audioCtx.createOscillator();
     lfo.type = 'square';
@@ -44,13 +43,13 @@ const master = audioCtx.destination;
 
 let VCO;
 const playOscillator = (hz=3400)=>{
-    const gain = audioCtx.createGain();
-    gain.connect(audioCtx.destination);
-    gain.gain.volume = .5;
+    const amp = audioCtx.createGain();
+    amp.connect(audioCtx.destination);
+    amp.gain.value = .5;
 
     VCO = audioCtx.createOscillator();
     VCO.frequency.value = hz;
-    VCO.connect(gain);
+    VCO.connect(amp);
     VCO.start(0);
     VCO.stop(audioCtx.currentTime + .8)
 }
