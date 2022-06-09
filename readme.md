@@ -15,6 +15,7 @@ https://lab.magiconch.com/magi/
 - [x] EX MODE
 - [x] 概率调整
 - [x] 优先级
+- [x] 提示音效
 
 ## 微博
 https://weibo.com/1197780522/LwOVxaMdO
