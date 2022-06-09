@@ -108,7 +108,11 @@ const one = _=>{
                 casperEl.setAttribute('data-status','reject');
             }else{
                 items[Math.floor(items.length*Math.random())].setAttribute('data-status','reject');
-                if(Math.random() > .6)items[Math.floor(items.length*Math.random())].setAttribute('data-status','reject');
+                items.forEach(item=>{
+                    if(Math.random()>0.5){
+                        item.setAttribute('data-status','reject');
+                    }
+                });
             }
             // bodyEl.setAttribute('data-status','data-status="voted"')
             finalVoteStatusEl.setAttribute('data-status','reject');
