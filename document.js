@@ -1,5 +1,20 @@
+let device = String(navigator.userAgent.match(/steam|macos/i)).toLowerCase();
 
-document.documentElement.setAttribute('data-device',String(navigator.userAgent.match(/steam|iPhone|iPad|iPod|macos/i)).toLowerCase())
+if(
+    /iPhone|iPad|iPod/i.test(navigator.userAgent) 
+    || 
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+) device = 'ios';
+
+document.documentElement.setAttribute('data-device',device)
+
+// console.log(navigator.userAgent)
+
+// if(device === 'ios'){
+//     document.documentElement.style.setProperty('--max-width', `${window.innerHeight}px`);
+// }
+
+
 
 const $ = s=>document.querySelector(s);
 const $$ = s=>[...document.querySelectorAll(s)];
@@ -9,60 +24,7 @@ const items = $$('.magi-item');
 const bodyEl = document.body;
 
 
-// https://codepen.io/jonoliver/pen/NoawPv
-// https://tomhazledine.com/web-audio-delay/
 
-// https://mdn.github.io/webaudio-examples/step-sequencer/
-let sample;
-const audioCtx = new AudioContext();
-
-let pulseHz = 2080;
-
-let osc;
-let lfo;
-
-function play() {
-    osc = audioCtx.createOscillator();
-    osc.type = 'sine';
-    osc.frequency.value = pulseHz;
-    
-    const amp = audioCtx.createGain();
-    amp.gain.value =.5;
-    
-    lfo = audioCtx.createOscillator();
-    lfo.type = 'square';
-    lfo.frequency.value = exMode?30:10;
-
-    lfo.connect(amp.gain);
-    osc.connect(amp).connect(audioCtx.destination);
-    lfo.start(0);
-    osc.start(0);
-}
-
-const master = audioCtx.destination;
-
-let VCO;
-const playOscillator = (hz=3400)=>{
-    const amp = audioCtx.createGain();
-    amp.connect(audioCtx.destination);
-    amp.gain.value = .5;
-
-    VCO = audioCtx.createOscillator();
-    VCO.frequency.value = hz;
-    VCO.connect(amp);
-    VCO.start(0);
-    VCO.stop(audioCtx.currentTime + .8)
-}
-function stopAll() {
-    try{
-        osc.stop(0);
-        lfo.stop(0);
-    }catch(e){}
-    try{
-        VCO.stop(audioCtx.currentTime);
-    }catch(e){}
-    
-}
 
 const randAll = _=>{
     $('.code').innerHTML = 100 + Math.floor(Math.random() * 600);
@@ -76,6 +38,71 @@ soundEl.onclick = e=>{
     soundEl.setAttribute('data-text',sound?'ON':'OFF');
 };
 soundEl.setAttribute('data-text',sound?'ON':'OFF');
+
+
+
+// https://codepen.io/jonoliver/pen/NoawPv
+// https://tomhazledine.com/web-audio-delay/
+
+// https://mdn.github.io/webaudio-examples/step-sequencer/
+let play = _=>{};
+let stopAll = _=>{};
+let playOscillator = _=>{}
+
+if(window.AudioContext){
+
+    const audioCtx = new AudioContext();
+
+    var carrierVolume = audioCtx.createGain();
+    carrierVolume.gain.linearRampToValueAtTime(.5, 0);
+    carrierVolume.connect(audioCtx.destination);
+    
+    let osc;
+    let lfo;
+    
+    play = function () {
+        osc = audioCtx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = 2080;
+        
+        lfo = audioCtx.createOscillator();
+        lfo.type = 'square';
+        lfo.frequency.value = exMode?30:10;
+    
+        lfo.connect(carrierVolume.gain);
+        osc.connect(carrierVolume);//.connect(audioCtx.destination);
+        lfo.start(0);
+        osc.start(0);
+        // carrierVolume.gain.linearRampToValueAtTime(.1, 0);
+    }
+    
+    const master = audioCtx.destination;
+    
+    let VCO;
+    playOscillator = (hz = 3400)=>{
+    
+        VCO = audioCtx.createOscillator();
+        VCO.frequency.value = hz;
+        VCO.connect(carrierVolume);
+        VCO.start(0);
+        VCO.stop(audioCtx.currentTime + .8);
+        // carrierVolume.gain.linearRampToValueAtTime(.1, 0);
+    }
+    stopAll = _=> {
+        try{
+            osc.stop(0);
+            lfo.stop(0);
+        }catch(e){}
+        try{
+            VCO.stop(audioCtx.currentTime);
+        }catch(e){}
+        
+    }
+}else{
+    soundEl.setAttribute('data-text','ERR');
+}
+
+
 
 let volume = 60;
 let reject;

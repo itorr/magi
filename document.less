@@ -43,6 +43,8 @@ html{
     -moz-font-feature-settings: "pwid";
     -webkit-font-feature-settings: "pwid";
     font-feature-settings: "pwid";
+
+    -webkit-text-size-adjust:none;
 }
 @keyframes origin {
     100%{
@@ -84,7 +86,8 @@ body{
 
 html[data-device="iphone"],
 html[data-device="ipad"],
-html[data-device="ipod"]{
+html[data-device="ipod"],
+html[data-device="ios"]{
     --app-height:-webkit-fill-available;
     body{
         min-height:-webkit-fill-available;
@@ -190,6 +193,9 @@ header{
     &:before{
         content: attr(data-text);
     }
+}
+[data-text="ERR"]{
+    pointer-events: none;
 }
 .volume{
     &:after{
@@ -465,6 +471,8 @@ footer{
     html{
         font-size:1.2em;
     }
+}
+@media (max-width:700px){
     .magi-list{
         position: absolute;
         top: 60%;
@@ -474,6 +482,7 @@ footer{
         top:20%;
     }
 }
+
 @media (max-width:520px), (max-height:520px){
     html{
         font-size:.9em;
