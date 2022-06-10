@@ -54,20 +54,28 @@ let playOscillator = _=>{}
 
 let audioCtx;
 
+let osc;
+let lfo;    
+let VCO;
+let carrierVolume;
 AudioContext = (window.AudioContext||window.webkitAudioContext);
-
-let startWebAudio = _=>{
-    startWebAudio = _=>{};
+let load = _=>{
+    // startWebAudio = _=>{};
     audioCtx = new AudioContext();
+    
+    audioCtx.addEventListener('close',e=>{
+        console.log('close')
+    })
 
-    var carrierVolume = audioCtx.createGain();
+    carrierVolume = audioCtx.createGain();
     carrierVolume.gain.linearRampToValueAtTime(.5, 0);
     carrierVolume.connect(audioCtx.destination);
-    
-    let osc;
-    let lfo;
-    
+}
+let startWebAudio = _=>{
     play = function () {
+        if(!audioCtx){
+            load();
+        }
         osc = audioCtx.createOscillator();
         osc.type = 'sine';
         osc.frequency.value = 2080;
@@ -83,10 +91,10 @@ let startWebAudio = _=>{
         // carrierVolume.gain.linearRampToValueAtTime(.1, 0);
     }
     
-    const master = audioCtx.destination;
-    
-    let VCO;
     playOscillator = (hz = 3400)=>{
+        if(!audioCtx){
+            load();
+        }
     
         VCO = audioCtx.createOscillator();
         VCO.frequency.value = hz;
@@ -103,10 +111,21 @@ let startWebAudio = _=>{
         try{
             VCO.stop(audioCtx.currentTime);
         }catch(e){}
-        
+        // audioCtx = null;
     }
 };
-
+document.addEventListener('visibilitychange',e=>{
+    // console.log(document['hidden'])
+    if( document['hidden'] ){
+        stopAll();
+        try{
+            audioCtx.close();
+            audioCtx = null;
+        }catch(e){}
+    }else{
+        
+    }
+})
 // document.addEventListener('touchstart',startWebAudio,{
 //     once:true
 // })
@@ -148,7 +167,7 @@ const one = _=>{
             }else{
                 items[Math.floor(items.length*Math.random())].setAttribute('data-status','reject');
                 items.forEach(item=>{
-                    if(Math.random()>0.5){
+                    if( (Math.random() * 100) > volume ){
                         item.setAttribute('data-status','reject');
                     }
                 });
@@ -285,6 +304,6 @@ const loadScript = (src,cb=_=>{},el) =>{
 };
 
 setTimeout(_=>{
-	('//hm.baidu.com/hm.js?f4e477c61adf5c145ce938a05611d5f0');
+	loadScript('//hm.baidu.com/hm.js?f4e477c61adf5c145ce938a05611d5f0');
 	loadScript('//www.googletagmanager.com/gtag/js?id=G-13BQC1VDD8');
 },400);
