@@ -45,13 +45,20 @@ soundEl.setAttribute('data-text',sound?'ON':'OFF');
 // https://tomhazledine.com/web-audio-delay/
 
 // https://mdn.github.io/webaudio-examples/step-sequencer/
-let play = _=>{};
+let play = _=>{
+    startWebAudio();
+    play()
+};
 let stopAll = _=>{};
 let playOscillator = _=>{}
 
-if(window.AudioContext){
+let audioCtx;
 
-    const audioCtx = new AudioContext();
+AudioContext = (window.AudioContext||window.webkitAudioContext);
+
+let startWebAudio = _=>{
+    startWebAudio = _=>{};
+    audioCtx = new AudioContext();
 
     var carrierVolume = audioCtx.createGain();
     carrierVolume.gain.linearRampToValueAtTime(.5, 0);
@@ -98,7 +105,12 @@ if(window.AudioContext){
         }catch(e){}
         
     }
-}else{
+};
+
+// document.addEventListener('touchstart',startWebAudio,{
+//     once:true
+// })
+if(!AudioContext){
     soundEl.setAttribute('data-text','ERR');
 }
 
