@@ -318,9 +318,9 @@ header{
 
 .final-vote-status{
     position: absolute;
-    top:4em;
+    font-size:2.5em;
+    top:3.4em;
     right:.5em;
-    font-size:2em;
     line-height: 1;
     padding:.1em 0;
 
@@ -354,6 +354,9 @@ header{
 
 body[data-status="voting"]{
     .config-box{
+        pointer-events: none;
+    }
+    footer{
         pointer-events: none;
     }
     .magi-item{
@@ -484,6 +487,9 @@ footer{
 }
 
 @media (max-width:520px), (max-height:520px){
+    :root{
+        --body-padding: 12px;
+    }
     html{
         font-size:.9em;
     }
