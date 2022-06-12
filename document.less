@@ -225,6 +225,8 @@ header{
     font-size: 2em;
     box-shadow:0 0 0 .18em currentColor;
 
+    pointer-events: none;
+
     &:after{
         display: none;
         content:'System';
@@ -353,10 +355,7 @@ header{
 }
 
 body[data-status="voting"]{
-    .config-box{
-        pointer-events: none;
-    }
-    footer{
+    .magi-box>*{
         pointer-events: none;
     }
     .magi-item{
