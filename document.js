@@ -135,7 +135,7 @@ if(!AudioContext){
 
 
 
-let volume = 60;
+let volume = 66;
 let reject;
 const one = _=>{
     const voteStatus = bodyEl.getAttribute('data-status') === 'voting'?'voted':'voting';
@@ -233,8 +233,9 @@ const volumeEl = $('.volume');
 const volumes = [
     1,
     10,
-    30,
-    60,
+    33,
+    50,
+    66,
     90,
     65535,
 ];
